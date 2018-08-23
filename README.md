@@ -3,4 +3,4 @@
 It's about how to create a Minecraft like environment with huge number of blocks using ECS.
 
 Unity Version:
-Unity 2018.2.4f1
+Unity 2018.2.5f1
