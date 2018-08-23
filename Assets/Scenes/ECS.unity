@@ -141,8 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8f9681a9ccc4c2d9d484effb61bb49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 1916194276552016, guid: bb2758e19148a42c5b2e3934f4eb1154,
-    type: 2}
   ChunkCount: 5
   blockMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   dirtMesh: {fileID: 4300000, guid: 106e6f23caef346e08fad9609ac8da2c, type: 3}
@@ -153,9 +151,10 @@ MonoBehaviour:
   glassMaterial: {fileID: 2100000, guid: 9c6ab17cc4b84ce4ab5ee93a7fb8dc94, type: 2}
   grassMaterial: {fileID: 2100000, guid: 465a6fad2be553b44956d2c035be0f23, type: 2}
   grassTopMaterial: {fileID: 2100000, guid: 4161c9f17de21e646b49cf022dc08d26, type: 2}
-  woodsideMaterial: {fileID: 2100000, guid: 30838eccfbd859447b393c4df98a8918, type: 2}
-  woodtopMaterial: {fileID: 2100000, guid: ab6ddfc012ac9aa419d1b86146c53f44, type: 2}
-  dirtwgrassMaterial: {fileID: 2100000, guid: f98c55a28c22b4a9ebf0bb8833fafcfc, type: 2}
+  woodMaterial: {fileID: 2100000, guid: 30838eccfbd859447b393c4df98a8918, type: 2}
+  leavesMaterial: {fileID: 2100000, guid: 6262d4ec2c2d1fa41a5eac1721aa7416, type: 2}
+  surfaceMaterial: {fileID: 2100000, guid: f98c55a28c22b4a9ebf0bb8833fafcfc, type: 2}
+  pinkMaterial: {fileID: 2100000, guid: 773aa46f9a7804c59ac1ace10a015c95, type: 2}
 --- !u!4 &789383149
 Transform:
   m_ObjectHideFlags: 0
