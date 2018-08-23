@@ -212,7 +212,10 @@ namespace Minecraft
                 //top leaves
                 if (i == yPos + 6)
                 {
-                    //woodMaterial = leavesMaterial;
+                    Matemp = leavesMaterial;
+                }
+                else{
+                    Matemp = woodMaterial;
                 }
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
@@ -220,7 +223,7 @@ namespace Minecraft
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                 {
                     mesh = blockMesh,
-                    material = woodMaterial
+                    material = Matemp
                 });
 
                 //leaves
