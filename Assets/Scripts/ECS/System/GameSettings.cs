@@ -30,9 +30,8 @@ namespace Minecraft
         public Material cobbleMaterial;
         public Material dirtMaterial;
         public Material tallGrassMaterial;
+        public Material roseMaterial;
 
-        //public Material roseMaterial;
-        //public Material tallGrassMaterial;
         [Header("Other Block Type")]
         public Material glassMaterial;
         public Material brickMaterial;
@@ -131,7 +130,7 @@ namespace Minecraft
                                 if (ranDice == 200)
                                 {
                                     //rose
-
+                                    PlantGenerator(xBlock, yBlock, zBlock, 2);
                                 }
                                 if (ranDice == 199)
                                 {
@@ -217,6 +216,9 @@ namespace Minecraft
                     maTemp = woodMaterial;
                 }
 
+                if (!maTemp)
+                    maTemp = pinkMaterial;
+
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
@@ -251,21 +253,31 @@ namespace Minecraft
 
         void PlantGenerator(int xPos, int yPos, int zPos,int plantType)
         {
-           
+
 
             //xpos,ypos,zpos is the root position of the plant that we are going to build.
             //rose
             if (plantType == 1)
             {
-                Entity entities = manager.CreateEntity(BlockArchetype);
-                manager.SetComponentData(entities, new Position { Value = new int3(xPos, yPos, zPos) });
-                manager.AddSharedComponentData(entities, new MeshInstanceRenderer
-                {
-                    mesh = tallGrassMesh,
-                    material = tallGrassMaterial
-                });
-                //manager.add
+                maTemp = tallGrassMaterial;
             }
+            else
+            {
+                maTemp = roseMaterial;
+            }
+
+            if (!maTemp)
+                maTemp = pinkMaterial;
+
+            Quaternion rotation = Quaternion.Euler(0, 45, 0);
+            Entity entities = manager.CreateEntity(BlockArchetype);
+            manager.SetComponentData(entities, new Position { Value = new int3(xPos, yPos, zPos) });
+            manager.AddComponentData(entities, new Rotation { Value = rotation });
+            manager.AddSharedComponentData(entities, new MeshInstanceRenderer
+            {
+                mesh = tallGrassMesh,
+                material = maTemp
+            });
         }
     }
 }
