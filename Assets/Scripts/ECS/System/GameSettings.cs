@@ -38,6 +38,9 @@ namespace Minecraft
         [Header("")]
         public Material pinkMaterial;
 
+        [Header("Collision Settings")]
+        public float playerCollisionRadius;
+
         /*
          [Header("For Debug")]
         public Material no1Mat;
@@ -75,7 +78,9 @@ namespace Minecraft
             // Create an archetype for basic blocks.
             BlockArchetype = manager.CreateArchetype(
                 typeof(TransformMatrix),
-                typeof(Position));
+                typeof(Position)
+                //typeof(ColliderChecker)
+            );
             //typeof(MeshInstanceRenderer));
         }
 
@@ -124,7 +129,7 @@ namespace Minecraft
                                 if (ranDice <= 20)
                                 {
                                     //grass
-                                    PlantGenerator(xBlock, yBlock, zBlock,1);
+                                    PlantGenerator(xBlock, yBlock, zBlock, 1);
 
                                 }
                                 if (ranDice == 200)
@@ -144,6 +149,8 @@ namespace Minecraft
                             case 1:
                                 meshTemp = surfaceMesh;
                                 maTemp = surfaceMaterial;
+                                //not a good way to add collider, so it's temporary.
+                                GM.GetComponent<ColliderPool>().AddCollider(xBlock, yBlock, zBlock);
                                 break;
                             case 2:
                             case 3:
@@ -179,11 +186,7 @@ namespace Minecraft
 
                             Entity entities = manager.CreateEntity(BlockArchetype);
                             manager.SetComponentData(entities, new Position { Value = new int3(xBlock, yBlock, zBlock) });
-                            //manager.SetSharedComponentData(entities[ordernumber], new MeshInstanceRenderer
-                            //{
-                            //  mesh = Meshtemp,
-                            //material = Matemp
-                            //});
+                            //manager.AddComponentData(entities, new BlockTag {});
 
                             manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                             {
@@ -192,8 +195,6 @@ namespace Minecraft
                             });
 
                         }
-
-                        //ordernumber += 1;
                     }
                 }
             }
@@ -219,8 +220,13 @@ namespace Minecraft
                 if (!maTemp)
                     maTemp = pinkMaterial;
 
+                //this is a temporary line.
+                GM.GetComponent<ColliderPool>().AddCollider(xPos, i, zPos);
+
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
+                //manager.AddComponentData(entities, new BlockTag { });
+                //manager.AddComponentData(entities, new ColliderChecker{ State = 0 });
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                 {
                     mesh = blockMesh,
@@ -236,9 +242,13 @@ namespace Minecraft
                         {
                             if (k != zPos || j != xPos)
                             {
+                                //this is a temporary line.
+                                GM.GetComponent<ColliderPool>().AddCollider(j, i, k);
 
                                 entities = manager.CreateEntity(BlockArchetype);
                                 manager.SetComponentData(entities, new Position { Value = new int3(j, i, k) });
+                                //manager.AddComponentData(entities, new BlockTag { });
+                                //manager.AddComponentData(entities, new HasCollider { ColliderState = false });
                                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                                 {
                                     mesh = blockMesh,

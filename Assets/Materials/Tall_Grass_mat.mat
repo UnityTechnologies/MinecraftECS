@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Tall_Grass_mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON
-  m_LightmapFlags: 4
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON _EMISSION
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
@@ -77,6 +77,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.7453332, g: 1, b: 0.7311321, a: 1}
-    - _EmissionColor: {r: 0.080061905, g: 0.3679245, b: 0.060742244, a: 1}
+    - _Color: {r: 0.55452, g: 0.8207547, b: 0.53813636, a: 1}
+    - _EmissionColor: {r: 0.0575681, g: 0.26415092, b: 0.043609817, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
