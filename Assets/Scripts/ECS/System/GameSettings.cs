@@ -14,36 +14,33 @@ namespace Minecraft
 
         public static EntityArchetype BlockArchetype;
 
-
-        //[Header("Block Info")]
-        //public GameObject blockPrefab;
-        //public GameObject spritePrefab;
-        [Header("Chunk Info")]
-        public int ChunkCount = 1;
+        [Header("World = ChunkBase x ChunkBase")]
+        public int ChunkBase = 1;
 
         [Header("Mesh Info")]
         public Mesh blockMesh;
-        public Mesh dirtMesh;
-        //public Mesh tallgrassMesh;
+        public Mesh surfaceMesh;
+        public Mesh tallGrassMesh;
 
-        [Header("Material Info")]
+        [Header("Nature Block Type")]
         public Material stoneMaterial;
-        public Material brickMaterial;
-        public Material cobbleMaterial;
-        public Material dirtMaterial;
-        public Material glassMaterial;
-        public Material grassMaterial;
-        public Material grassTopMaterial;
-        //public Material roseMaterial;
-        //public Material tallGrassMaterial;
-
         public Material woodMaterial;
         public Material leavesMaterial;
         public Material surfaceMaterial;
+        public Material cobbleMaterial;
+        public Material dirtMaterial;
+        public Material tallGrassMaterial;
+
+        //public Material roseMaterial;
+        //public Material tallGrassMaterial;
+        [Header("Other Block Type")]
+        public Material glassMaterial;
+        public Material brickMaterial;
         [Header("")]
         public Material pinkMaterial;
 
         /*
+         [Header("For Debug")]
         public Material no1Mat;
         public Material no2Mat;
         public Material no3Mat;
@@ -55,8 +52,8 @@ namespace Minecraft
         */
 
         int ranDice;
-        Material Matemp;
-        Mesh Meshtemp;
+        Material maTemp;
+        Mesh meshTemp;
 
         void Awake()
         {
@@ -88,7 +85,7 @@ namespace Minecraft
         {
             manager = World.Active.GetOrCreateManager<EntityManager>();
             //Generate the world
-            ChunkGenerator(ChunkCount);
+            ChunkGenerator(ChunkBase);
         }
 
         void ChunkGenerator(int amount)
@@ -128,6 +125,7 @@ namespace Minecraft
                                 if (ranDice <= 20)
                                 {
                                     //grass
+                                    PlantGenerator(xBlock, yBlock, zBlock,1);
 
                                 }
                                 if (ranDice == 200)
@@ -145,26 +143,26 @@ namespace Minecraft
                                 airChecker = true;
                                 break;
                             case 1:
-                                Meshtemp = dirtMesh;
-                                Matemp = surfaceMaterial;
+                                meshTemp = surfaceMesh;
+                                maTemp = surfaceMaterial;
                                 break;
                             case 2:
                             case 3:
                             case 4:
                                 //Dirt
-                                Meshtemp = blockMesh;
-                                Matemp = dirtMaterial;
+                                meshTemp = blockMesh;
+                                maTemp = dirtMaterial;
                                 break;
                             case 5:
                             case 6:
                                 //stone block
-                                Meshtemp = blockMesh;
-                                Matemp = stoneMaterial;
+                                meshTemp = blockMesh;
+                                maTemp = stoneMaterial;
                                 break;
                             case 7:
                             case 8:
-                                Meshtemp = blockMesh;
-                                Matemp = cobbleMaterial;
+                                meshTemp = blockMesh;
+                                maTemp = cobbleMaterial;
                                 break;
                             default:
                                 //airBlock or anything hight level < 0
@@ -177,8 +175,8 @@ namespace Minecraft
                         if (!airChecker)
                         {
 
-                            if (!Matemp)
-                                Matemp = pinkMaterial;
+                            if (!maTemp)
+                                maTemp = pinkMaterial;
 
                             Entity entities = manager.CreateEntity(BlockArchetype);
                             manager.SetComponentData(entities, new Position { Value = new int3(xBlock, yBlock, zBlock) });
@@ -190,8 +188,8 @@ namespace Minecraft
 
                             manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                             {
-                                mesh = Meshtemp,
-                                material = Matemp
+                                mesh = meshTemp,
+                                material = maTemp
                             });
 
                         }
@@ -212,10 +210,11 @@ namespace Minecraft
                 //top leaves
                 if (i == yPos + 6)
                 {
-                    Matemp = leavesMaterial;
+                    maTemp = leavesMaterial;
                 }
-                else{
-                    Matemp = woodMaterial;
+                else
+                {
+                    maTemp = woodMaterial;
                 }
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
@@ -223,7 +222,7 @@ namespace Minecraft
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                 {
                     mesh = blockMesh,
-                    material = Matemp
+                    material = maTemp
                 });
 
                 //leaves
@@ -247,6 +246,25 @@ namespace Minecraft
                         }
                     }
                 }
+            }
+        }
+
+        void PlantGenerator(int xPos, int yPos, int zPos,int plantType)
+        {
+           
+
+            //xpos,ypos,zpos is the root position of the plant that we are going to build.
+            //rose
+            if (plantType == 1)
+            {
+                Entity entities = manager.CreateEntity(BlockArchetype);
+                manager.SetComponentData(entities, new Position { Value = new int3(xPos, yPos, zPos) });
+                manager.AddSharedComponentData(entities, new MeshInstanceRenderer
+                {
+                    mesh = tallGrassMesh,
+                    material = tallGrassMaterial
+                });
+                //manager.add
             }
         }
     }
