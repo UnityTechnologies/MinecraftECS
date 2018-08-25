@@ -8,7 +8,7 @@ namespace Minecraft
     {
 
         //private Vector3 playerPrevPosition;
-
+        public static ColliderPool CP;
         public GameObject boxCollider;
         //public int pooledAmount = 100;
         //List<GameObject> boxColliders;
@@ -17,19 +17,29 @@ namespace Minecraft
         //void Start()
         //{
 
-            //boxColliders = new List<GameObject>();
-            //for (int i = 0; i < pooledAmount; i++)
-            //{
-               // GameObject obj = (GameObject)Instantiate(boxCollider);
-               // obj.SetActive(false);
-                //boxColliders.Add(obj);
-            //}
+        //boxColliders = new List<GameObject>();
+        //for (int i = 0; i < pooledAmount; i++)
+        //{
+        // GameObject obj = (GameObject)Instantiate(boxCollider);
+        // obj.SetActive(false);
+        //boxColliders.Add(obj);
         //}
-        public void AddCollider(int xPos, int yPos, int zPos)
+        //}
+        void Awake()
+        {
+            if (CP != null && CP != this)
+                Destroy(gameObject);
+            else
+                CP = this;
+        }
+
+        public void AddCollider(Vector3 entitypos)
         {
             GameObject obj = (GameObject)Instantiate(boxCollider);
-            obj.transform.position = new Vector3(xPos, yPos, zPos);
+            obj.transform.position = entitypos;
             obj.transform.parent = transform;
+            obj.layer = 9;
+            //obj.SetActive(false);
 
             /*
             for (int i = 0; i < boxColliders.Count;i++)

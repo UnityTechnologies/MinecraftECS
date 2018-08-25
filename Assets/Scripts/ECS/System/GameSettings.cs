@@ -35,6 +35,8 @@ namespace Minecraft
         [Header("Other Block Type")]
         public Material glassMaterial;
         public Material brickMaterial;
+        public Material plankMaterial;
+        public Material tntMaterial;
         [Header("")]
         public Material pinkMaterial;
 
@@ -65,7 +67,7 @@ namespace Minecraft
                 GM = this;
         }
 
-        EntityManager manager;
+        public EntityManager manager;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize()
@@ -150,7 +152,8 @@ namespace Minecraft
                                 meshTemp = surfaceMesh;
                                 maTemp = surfaceMaterial;
                                 //not a good way to add collider, so it's temporary.
-                                GM.GetComponent<ColliderPool>().AddCollider(xBlock, yBlock, zBlock);
+                                Vector3 posTemp = new Vector3(xBlock, yBlock, zBlock);
+                                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
                                 break;
                             case 2:
                             case 3:
@@ -221,7 +224,8 @@ namespace Minecraft
                     maTemp = pinkMaterial;
 
                 //this is a temporary line.
-                GM.GetComponent<ColliderPool>().AddCollider(xPos, i, zPos);
+                Vector3 posTemp = new Vector3(xPos, i, zPos);
+                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
@@ -243,7 +247,8 @@ namespace Minecraft
                             if (k != zPos || j != xPos)
                             {
                                 //this is a temporary line.
-                                GM.GetComponent<ColliderPool>().AddCollider(j, i, k);
+                                posTemp = new Vector3(j, i, k);
+                                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
 
                                 entities = manager.CreateEntity(BlockArchetype);
                                 manager.SetComponentData(entities, new Position { Value = new int3(j, i, k) });
