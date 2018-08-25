@@ -13,11 +13,11 @@ public class ToolbarScript : MonoBehaviour {
     }
 
     void Update () {
-        if (MyCamera.block_ == blockNum)
+        if (Minecraft.MyCamera.block_ == blockNum)
         {
             Select.GetComponent<RawImage>().enabled = true;
         }
-        if (MyCamera.block_ != blockNum)
+        if (Minecraft.MyCamera.block_ != blockNum)
         {
             Select.GetComponent<RawImage>().enabled = false;
         }

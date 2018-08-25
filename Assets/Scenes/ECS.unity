@@ -206,9 +206,9 @@ MonoBehaviour:
     m_Bits: 512
   LmaskBlockDestruction:
     serializedVersion: 2
-    m_Bits: 0
-  PlacingGraphics: {fileID: 1641873219}
-  grass_audio: {fileID: 0}
+    m_Bits: 512
+  playerEntity: {fileID: 50558679}
+  grass_audio: {fileID: 8300000, guid: 30d934cde79924144910cfcfb36ca525, type: 3}
   stone_audio: {fileID: 8300000, guid: 6aca345b16ab8884a92a54275c969d6a, type: 3}
   dirt_audio: {fileID: 8300000, guid: 3ae7164d42f158b48826e91c007d1233, type: 3}
   wood_audio: {fileID: 8300000, guid: a99fe2de2f7f1f643b43c28db5f71ddd, type: 3}
@@ -222,7 +222,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

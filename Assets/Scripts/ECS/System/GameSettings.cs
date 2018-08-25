@@ -68,6 +68,7 @@ namespace Minecraft
         }
 
         public EntityManager manager;
+        public Entity entities;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize()
@@ -90,6 +91,7 @@ namespace Minecraft
         void Start()
         {
             manager = World.Active.GetOrCreateManager<EntityManager>();
+            //entities = manager.CreateEntity(BlockArchetype);
             //Generate the world
             ChunkGenerator(ChunkBase);
         }
@@ -189,7 +191,7 @@ namespace Minecraft
 
                             Entity entities = manager.CreateEntity(BlockArchetype);
                             manager.SetComponentData(entities, new Position { Value = new int3(xBlock, yBlock, zBlock) });
-                            //manager.AddComponentData(entities, new BlockTag {});
+                            manager.AddComponentData(entities, new BlockTag {});
 
                             manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                             {
@@ -229,7 +231,7 @@ namespace Minecraft
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
-                //manager.AddComponentData(entities, new BlockTag { });
+                manager.AddComponentData(entities, new BlockTag { });
                 //manager.AddComponentData(entities, new ColliderChecker{ State = 0 });
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                 {
@@ -252,7 +254,7 @@ namespace Minecraft
 
                                 entities = manager.CreateEntity(BlockArchetype);
                                 manager.SetComponentData(entities, new Position { Value = new int3(j, i, k) });
-                                //manager.AddComponentData(entities, new BlockTag { });
+                                manager.AddComponentData(entities, new BlockTag { });
                                 //manager.AddComponentData(entities, new HasCollider { ColliderState = false });
                                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                                 {
