@@ -290,6 +290,7 @@ namespace Minecraft
             Entity entities = manager.CreateEntity(BlockArchetype);
             manager.SetComponentData(entities, new Position { Value = new int3(xPos, yPos, zPos) });
             manager.AddComponentData(entities, new Rotation { Value = rotation });
+            manager.AddComponentData(entities, new SurfacePlantTag { });
             manager.AddSharedComponentData(entities, new MeshInstanceRenderer
             {
                 mesh = tallGrassMesh,

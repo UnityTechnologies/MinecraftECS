@@ -8,37 +8,19 @@ using Unity.Transforms;
 
 namespace Minecraft
 {
-    public class MyCamera : MonoBehaviour
+    public class PickaxeController : MonoBehaviour
     {
         Vector2 mouseLook;
-        //Vector2 smoothV;
-        //Vector3 interactionPoint;
-        //public float sensitivity = 5f;
-        //public float smoothing = 2f;
 
-        public LayerMask LmaskBlockPlacing;
-        public LayerMask LmaskBlockDestruction;
+        public LayerMask blockLayer;
 
         GameObject player;
-        public GameObject playerEntity;
+        //public GameObject playerEntity;
         public static Transform BlockToDestroy;
 
-        //blockplacing
-        //public Transform PlacingGraphics;
         Material BlockToPlace;
 
-        /*
-        //blocks
-        public Material Stone_block;
-        public Material Plank_block;
-        public Material Glass_block;
-        public Material Wood_block;
-        public Material Cobble_block;
-        public Material Brick_block;
-        public Material TNT_block;
-        */
-        //UI
-        public static int block_ = 1;
+        public static int blockID = 1;
 
 
         public AudioClip grass_audio;
@@ -50,17 +32,13 @@ namespace Minecraft
 
         bool stepAudioIsPlaying = false;
 
-        //
-        //public static EntityArchetype BlockArchetype;
         EntityManager manager;
-        //Entity entities = Minecraft.GameSettings.GM.entities;
 
         void Start()
         {
             AS = transform.GetComponent<AudioSource>();
             player = this.transform.parent.gameObject;
             Cursor.lockState = CursorLockMode.Locked;
-
 
             manager = World.Active.GetOrCreateManager<EntityManager>();
         }
@@ -77,68 +55,69 @@ namespace Minecraft
                 Cursor.lockState = CursorLockMode.None;
             }
 
-            if (block_ > 7)
+            if (blockID > 7)
             {
-                block_ = 1;
+                blockID = 1;
             }
-            if (block_ < 1)
+            if (blockID < 1)
             {
-                block_ = 7;
+                blockID = 7;
             }
             if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                block_++;
+                blockID++;
             }
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                block_--;
+                blockID--;
             }
 
 
             #region // blocklist
-            if (block_ == 1)
+            if (blockID == 1)
             {
                 //stone
                 BlockToPlace = Minecraft.GameSettings.GM.stoneMaterial;
             }
-            else if (block_ == 2)
+            else if (blockID == 2)
             {
                 //plank
                 BlockToPlace = Minecraft.GameSettings.GM.plankMaterial;
             }
-            else if (block_ == 3)
+            else if (blockID == 3)
             {
                 //glass
                 BlockToPlace = Minecraft.GameSettings.GM.glassMaterial;
             }
-            else if (block_ == 4)
+            else if (blockID == 4)
             {
                 //wood
                 BlockToPlace = Minecraft.GameSettings.GM.woodMaterial;
             }
-            else if (block_ == 5)
+            else if (blockID == 5)
             {
                 //cobble
                 BlockToPlace = Minecraft.GameSettings.GM.cobbleMaterial;
             }
-            else if (block_ == 6)
+            else if (blockID == 6)
             {
                 //TNT
                 BlockToPlace = Minecraft.GameSettings.GM.tntMaterial;
             }
-            else if (block_ == 7)
+            else if (blockID == 7)
             {
                 //brick
                 BlockToPlace = Minecraft.GameSettings.GM.brickMaterial;
             }
             #endregion
 
-
+            //right click to place block
             if (Input.GetMouseButtonDown(1))
             {
                 PlaceBlock(BlockToPlace);
             }
 
+            //left click to dig
             if (Input.GetMouseButtonDown(0))
             {
                 DestroyBlock();
@@ -157,15 +136,15 @@ namespace Minecraft
         void PlaceBlock(Material Block)
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, LmaskBlockPlacing);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, blockLayer);
             if (hitInfo.transform != null)
             {
 
-                if (block_ == 1 || block_ == 3 || block_ == 5 || block_ == 7)
+                if (blockID == 1 || blockID == 3 || blockID == 5 || blockID == 7)
                 {
                     AS.PlayOneShot(stone_audio);
                 }
-                else if (block_ == 2 || block_ == 4)
+                else if (blockID == 2 || blockID == 4)
                 {
                     AS.PlayOneShot(wood_audio);
                 }
@@ -188,16 +167,12 @@ namespace Minecraft
         void DestroyBlock()
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, LmaskBlockDestruction);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, blockLayer);
             if (hitInfo.transform != null)
             {
-                //hitInfo.transform.position
-                //PostUpdateCommands.DestroyEntity(bullets.entity[i]);
-
                 Entity entities = manager.CreateEntity(Minecraft.GameSettings.BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = hitInfo.transform.position });
                 manager.AddComponentData(entities, new DestroyTag {});
-                //Entity entities = EntityManager.GetComponentData<DestroyBlock>(this.playerEntity);
 
                 //
                 //GameObject.Instantiate(Settings.main.bulletHitPrefab, position, Quaternion.identity);

@@ -201,13 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d84b454e628047c5b90d03e55707e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LmaskBlockPlacing:
+  blockLayer:
     serializedVersion: 2
     m_Bits: 512
-  LmaskBlockDestruction:
-    serializedVersion: 2
-    m_Bits: 512
-  playerEntity: {fileID: 50558679}
   grass_audio: {fileID: 8300000, guid: 30d934cde79924144910cfcfb36ca525, type: 3}
   stone_audio: {fileID: 8300000, guid: 6aca345b16ab8884a92a54275c969d6a, type: 3}
   dirt_audio: {fileID: 8300000, guid: 3ae7164d42f158b48826e91c007d1233, type: 3}
