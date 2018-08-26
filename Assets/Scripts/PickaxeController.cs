@@ -30,6 +30,8 @@ namespace Minecraft
 
         AudioSource AS;
 
+        public ParticleSystem digEffect;
+
         bool stepAudioIsPlaying = false;
 
         EntityManager manager;
@@ -136,7 +138,7 @@ namespace Minecraft
         void PlaceBlock(Material Block)
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, blockLayer);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 7, blockLayer);
             if (hitInfo.transform != null)
             {
 
@@ -167,15 +169,19 @@ namespace Minecraft
         void DestroyBlock()
         {
             RaycastHit hitInfo;
-            Physics.Raycast(transform.position, transform.forward, out hitInfo, 5, blockLayer);
+            Physics.Raycast(transform.position, transform.forward, out hitInfo, 7, blockLayer);
             if (hitInfo.transform != null)
             {
                 Entity entities = manager.CreateEntity(Minecraft.GameSettings.BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = hitInfo.transform.position });
                 manager.AddComponentData(entities, new DestroyTag {});
 
-                //
-                //GameObject.Instantiate(Settings.main.bulletHitPrefab, position, Quaternion.identity);
+                //move the dig effect to the position and play
+                if (digEffect && !digEffect.isPlaying)
+                {
+                    digEffect.transform.position = hitInfo.transform.position;
+                    digEffect.Play();
+                }
 
                 AS.PlayOneShot(dirt_audio);
                 Destroy(hitInfo.transform.gameObject);

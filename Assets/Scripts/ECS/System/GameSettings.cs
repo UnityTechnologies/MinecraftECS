@@ -124,6 +124,7 @@ namespace Minecraft
                     {
                         hightlevel = (int)(Heightmap.GetPixel(xBlock, zBlock).r * 100) - yBlock;
                         airChecker = false;
+                        Vector3 posTemp = new Vector3(xBlock, yBlock, zBlock);
 
                         switch (hightlevel)
                         {
@@ -153,9 +154,6 @@ namespace Minecraft
                             case 1:
                                 meshTemp = surfaceMesh;
                                 maTemp = surfaceMaterial;
-                                //not a good way to add collider, so it's temporary.
-                                Vector3 posTemp = new Vector3(xBlock, yBlock, zBlock);
-                                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
                                 break;
                             case 2:
                             case 3:
@@ -188,6 +186,10 @@ namespace Minecraft
 
                             if (!maTemp)
                                 maTemp = pinkMaterial;
+
+                            //Add a collider for all blocks
+                            //maybe this is not a best way to do collision, so it's just a temporary solution until we can use ECS to handle it.
+                            GM.GetComponent<ColliderPool>().AddCollider(posTemp);
 
                             Entity entities = manager.CreateEntity(BlockArchetype);
                             manager.SetComponentData(entities, new Position { Value = new int3(xBlock, yBlock, zBlock) });

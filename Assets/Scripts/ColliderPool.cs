@@ -6,25 +6,10 @@ namespace Minecraft
 {
     public class ColliderPool : MonoBehaviour
     {
-
-        //private Vector3 playerPrevPosition;
+    //idealy I want to make a pool system for reuse these colliders but still don't find a good way to do it.
         public static ColliderPool CP;
         public GameObject boxCollider;
-        //public int pooledAmount = 100;
-        //List<GameObject> boxColliders;
 
-        // Use this for initialization
-        //void Start()
-        //{
-
-        //boxColliders = new List<GameObject>();
-        //for (int i = 0; i < pooledAmount; i++)
-        //{
-        // GameObject obj = (GameObject)Instantiate(boxCollider);
-        // obj.SetActive(false);
-        //boxColliders.Add(obj);
-        //}
-        //}
         void Awake()
         {
             if (CP != null && CP != this)
@@ -39,19 +24,8 @@ namespace Minecraft
             obj.transform.position = entitypos;
             obj.transform.parent = transform;
             obj.layer = 9;
-            //obj.SetActive(false);
-
-            /*
-            for (int i = 0; i < boxColliders.Count;i++)
-            {
-                if(!boxColliders[i].activeInHierarchy)
-                {
-                    boxColliders[i].transform.position = new Vector3 (xPos, yPos, zPos);
-                    boxColliders[i].SetActive(true);
-                    break;
-                }
-
-            }*/
+            //obj.GetComponent<BoxCollider>().enabled = false;
+            //obj.gameObject.SetActive(false);
         }
     }
 }
