@@ -1047,7 +1047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8f9681a9ccc4c2d9d484effb61bb49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChunkBase: 5
+  ChunkBase: 10
   blockMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   surfaceMesh: {fileID: 4300000, guid: 106e6f23caef346e08fad9609ac8da2c, type: 3}
   tallGrassMesh: {fileID: 4300000, guid: 55c75c8fbd1e84b1c986f7927cda29b2, type: 3}
@@ -1059,6 +1059,7 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: 4e3ac9d785e1afb4f81e907c6001d61a, type: 2}
   tallGrassMaterial: {fileID: 2100000, guid: 7a70da52443142a429c6332ea2355dba, type: 2}
   roseMaterial: {fileID: 2100000, guid: bf43e80294bca404584c9726c2232052, type: 2}
+  CloudMaterial: {fileID: 2100000, guid: 2d942a91dcb75410e97c1abbc9d26c38, type: 2}
   glassMaterial: {fileID: 2100000, guid: 9c6ab17cc4b84ce4ab5ee93a7fb8dc94, type: 2}
   brickMaterial: {fileID: 2100000, guid: 5eed8330c9fa6e3459c0c20cf4e62245, type: 2}
   plankMaterial: {fileID: 2100000, guid: bbff22a24255a1046915edb9058256da, type: 2}

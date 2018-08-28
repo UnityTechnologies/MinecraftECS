@@ -31,6 +31,7 @@ namespace Minecraft
         public Material dirtMaterial;
         public Material tallGrassMaterial;
         public Material roseMaterial;
+        public Material CloudMaterial;
 
         [Header("Other Block Type")]
         public Material glassMaterial;
@@ -40,8 +41,8 @@ namespace Minecraft
         [Header("")]
         public Material pinkMaterial;
 
-        [Header("Collision Settings")]
-        public float playerCollisionRadius;
+        //[Header("Collision Settings")]
+        //public float playerCollisionRadius;
 
         /*
          [Header("For Debug")]
@@ -136,6 +137,11 @@ namespace Minecraft
                                     //grass
                                     PlantGenerator(xBlock, yBlock, zBlock, 1);
 
+                                }
+                                if (ranDice == 198)
+                                {
+                                    //clouds
+                                    CloudGenerator(xBlock, yBlock, zBlock);
                                 }
                                 if (ranDice == 200)
                                 {
@@ -298,6 +304,32 @@ namespace Minecraft
                 mesh = tallGrassMesh,
                 material = maTemp
             });
+        }
+
+        void CloudGenerator(int xPos, int yPos, int zPos)
+        {
+
+            meshTemp = blockMesh;
+            maTemp = CloudMaterial;
+
+            if (!maTemp)
+                maTemp = pinkMaterial;
+
+            ranDice = Random.Range(4, 7);
+
+            for (int i = 0; i < ranDice; i++)
+            {
+                for (int j = 0; j < ranDice; j++)
+                {
+                    Entity entities = manager.CreateEntity(BlockArchetype);
+                    manager.SetComponentData(entities, new Position { Value = new int3(xPos+i, yPos + 15, zPos+j) });
+                    manager.AddSharedComponentData(entities, new MeshInstanceRenderer
+                    {
+                        mesh = meshTemp,
+                        material = maTemp
+                    });
+                }
+            }
         }
     }
 }
