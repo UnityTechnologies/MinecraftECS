@@ -81,7 +81,7 @@ namespace Minecraft
 
             // Create an archetype for basic blocks.
             BlockArchetype = manager.CreateArchetype(
-                typeof(TransformMatrix),
+                //typeof(TransformMatrix),
                 typeof(Position)
                 //typeof(ColliderChecker)
             );
@@ -131,7 +131,7 @@ namespace Minecraft
                         {
                             case 0:
                                 //random surface block
-                                ranDice = Random.Range(1, 201);
+                                ranDice = UnityEngine.Random.Range(1, 201);
                                 if (ranDice <= 20)
                                 {
                                     //grass
@@ -315,7 +315,8 @@ namespace Minecraft
             if (!maTemp)
                 maTemp = pinkMaterial;
 
-            ranDice = Random.Range(4, 7);
+            //ranDice = Unity.Mathematics.Random.(4, 7);
+            ranDice = UnityEngine.Random.Range(4, 7);
 
             for (int i = 0; i < ranDice; i++)
             {

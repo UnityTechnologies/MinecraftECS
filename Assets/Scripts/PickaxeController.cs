@@ -13,6 +13,7 @@ namespace Minecraft
         Vector2 mouseLook;
 
         public LayerMask blockLayer;
+        //private static Minecraft.GameSettings MatRef;
 
         GameObject player;
         //public GameObject playerEntity;
@@ -161,7 +162,7 @@ namespace Minecraft
                 });
 
                 //add a box collider at the same location of the entity
-                Position posTemp = new Position(hitInfo.transform.position + hitInfo.normal);
+                Position posTemp = new Position { Value = (hitInfo.transform.position + hitInfo.normal) };
                 Minecraft.ColliderPool.CP.AddCollider(posTemp.Value);
             }
         }
