@@ -105,16 +105,6 @@ namespace Minecraft
             int hightlevel;
             bool airChecker;
 
-            //NativeArray<Entity> entities = new NativeArray<Entity>(totalamount, Allocator.Temp);
-            //manager.Instantiate(blockPrefab, entities);
-
-
-
-            //for (int i = 0; i < amount; i++)
-            //{
-
-            //if (ordernumber == totalamount)
-            //return;
 
             //Block ordering from X*0,0,0 to 15,10,10( * Chunk x2)
             for (int yBlock = 0; yBlock < 15; yBlock++)
@@ -180,7 +170,7 @@ namespace Minecraft
                                 maTemp = cobbleMaterial;
                                 break;
                             default:
-                                //airBlock or anything hight level < 0
+                                //airBlock or anything higher level < 0
                                 airChecker = true;
 
                                 break;
@@ -206,13 +196,10 @@ namespace Minecraft
                                 mesh = meshTemp,
                                 material = maTemp
                             });
-
                         }
                     }
                 }
             }
-            //}
-            //entities.Dispose();
         }
         void TreeGenerator(int xPos, int yPos, int zPos)
         {
@@ -233,14 +220,13 @@ namespace Minecraft
                 if (!maTemp)
                     maTemp = pinkMaterial;
 
-                //this is a temporary line.
+                //these are temporary codes, until we have a collision system for ECS.
                 Vector3 posTemp = new Vector3(xPos, i, zPos);
                 GM.GetComponent<ColliderPool>().AddCollider(posTemp);
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
                 manager.AddComponentData(entities, new BlockTag { });
-                //manager.AddComponentData(entities, new ColliderChecker{ State = 0 });
                 manager.AddSharedComponentData(entities, new MeshInstanceRenderer
                 {
                     mesh = blockMesh,
@@ -279,7 +265,6 @@ namespace Minecraft
         void PlantGenerator(int xPos, int yPos, int zPos,int plantType)
         {
 
-
             //xpos,ypos,zpos is the root position of the plant that we are going to build.
             //rose
             if (plantType == 1)
@@ -315,7 +300,7 @@ namespace Minecraft
             if (!maTemp)
                 maTemp = pinkMaterial;
 
-            //ranDice = Unity.Mathematics.Random.(4, 7);
+            //ranDice = Unity.Mathematics.Random.(4, 7); this line doesn't work after preview12
             ranDice = UnityEngine.Random.Range(4, 7);
 
             for (int i = 0; i < ranDice; i++)

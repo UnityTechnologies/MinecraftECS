@@ -10,7 +10,7 @@ namespace Minecraft
 {
     public class PickaxeController : MonoBehaviour
     {
-        Vector2 mouseLook;
+        //Vector2 mouseLook;
 
         public LayerMask blockLayer;
         //private static Minecraft.GameSettings MatRef;
@@ -33,7 +33,7 @@ namespace Minecraft
 
         public ParticleSystem digEffect;
 
-        bool stepAudioIsPlaying = false;
+        //bool stepAudioIsPlaying = false;
 
         EntityManager manager;
 
@@ -48,7 +48,7 @@ namespace Minecraft
 
         void Update()
         {
-
+            /*
             if (Input.GetButtonUp("Q") && Cursor.lockState == CursorLockMode.None)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -56,7 +56,7 @@ namespace Minecraft
             if (Input.GetButtonDown("Q") && Cursor.lockState == CursorLockMode.Locked)
             {
                 Cursor.lockState = CursorLockMode.None;
-            }
+            }*/
 
             if (blockID > 7)
             {
@@ -128,13 +128,14 @@ namespace Minecraft
 
         }
 
+        /*
         IEnumerator PlayStep(AudioClip audioClip)
         {
             stepAudioIsPlaying = true;
             AS.PlayOneShot(audioClip, 0.1f);
             yield return new WaitForSecondsRealtime(0.5f);
             stepAudioIsPlaying = false;
-        }
+        }*/
 
         void PlaceBlock(Material Block)
         {

@@ -62,7 +62,7 @@ namespace Minecraft
                             }
                         }
 
-                        //remove the block
+                        //remove blocks
                         PostUpdateCommands.DestroyEntity(sourceBlock.entity[i]);
                         PostUpdateCommands.DestroyEntity(targetBlocks.entity[j]);
                     }
