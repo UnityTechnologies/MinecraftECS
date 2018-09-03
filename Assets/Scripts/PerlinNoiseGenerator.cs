@@ -26,9 +26,8 @@ namespace Minecraft.ECS
             offsetX = Random.Range(0, 99999);
             offsetY = Random.Range(0, 99999);
 
-            //NoiseHeightMap = GenerateHeightMap();
             Minecraft.GameSettings.Heightmap = GenerateHeightMap();
-            //GetComponent<MeshRenderer>().material.mainTexture = ChunkGenerator.Heightmap;
+            Minecraft.SpawnNumberBlocks.Heightmap = GenerateHeightMap();
 
         }
 
@@ -60,7 +59,7 @@ namespace Minecraft.ECS
             float sample1 = Mathf.PerlinNoise(xCoord1, yCoord1) / 15;
             float sample2 = Mathf.PerlinNoise(xCoord2, yCoord2) / 15;
             float sample3 = Mathf.PerlinNoise(xCoord3, yCoord3) / 15;
-            //return new Color(sample1 + sample2 - sample3 + 0.05f, sample1 + sample2 - sample3 + 0.05f, sample1 + sample2 - sample3 + 0.05f);
+
             return new Color(sample1 + sample2 + sample3, sample1 + sample2 + sample3, sample1 + sample2 + sample3);
         }
     }
