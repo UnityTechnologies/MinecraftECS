@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -41,6 +42,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+
+        //private bool show_UnityChan = false;
 
         // Use this for initialization
         private void Start()
@@ -108,7 +111,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
-
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
@@ -129,6 +131,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
+
+            //Vector3 newCameraPosition;
+            //newCameraPosition = m_Camera.transform.localPosition;
+            //newCameraPosition.y = 1;
+            //newCameraPosition.z = -2;
+            //m_Camera.transform.localPosition = newCameraPosition;
+            
 
             m_MouseLook.UpdateCursorLock();
         }
@@ -203,6 +212,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
+        
+
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
@@ -217,6 +228,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
             m_Input = new Vector2(horizontal, vertical);
+
+            //play MCUnityChan walk/run animations
+            Animator animator = GetComponentInChildren<Animator>();
+            if(animator)
+            animator.SetFloat("Speed", m_Input.sqrMagnitude);
+
 
             // normalize input if it exceeds 1 in combined length:
             if (m_Input.sqrMagnitude > 1)

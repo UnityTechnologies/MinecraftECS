@@ -4,3 +4,9 @@
 .DS_Store
 Assets/.DS_Store
 Assets/.DS_Store
+.vs/MinecraftECS/xs/sqlite3/db.lock
+.vs/MinecraftECS/xs/sqlite3/storage.ide
+.vs/MinecraftECS/xs/sqlite3/storage.ide-shm
+.vs/MinecraftECS/xs/sqlite3/storage.ide-wal
+.vs/MinecraftECS/xs/UserPrefs.xml
+Assets/.DS_Store
