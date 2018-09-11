@@ -41,20 +41,9 @@ namespace Minecraft
         [Header("")]
         public Material pinkMaterial;
 
-        //[Header("Collision Settings")]
+        [Header("Collision Settings")]
         //public float playerCollisionRadius;
-
-        /*
-         [Header("For Debug")]
-        public Material no1Mat;
-        public Material no2Mat;
-        public Material no3Mat;
-        public Material no4Mat;
-        public Material no5Mat;
-        public Material no6Mat;
-        public Material no0Mat;
-        public Material noQMat;
-        */
+        public bool createCollider;
 
         int ranDice;
         Material maTemp;
@@ -185,7 +174,8 @@ namespace Minecraft
 
                             //Add a collider for all blocks
                             //maybe this is not a best way to do collision, so it's just a temporary solution until we can use ECS to handle it.
-                            GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                            //GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                            AddCollider(posTemp);
 
                             Entity entities = manager.CreateEntity(BlockArchetype);
                             manager.SetComponentData(entities, new Position { Value = new int3(xBlock, yBlock, zBlock) });
@@ -222,7 +212,8 @@ namespace Minecraft
 
                 //these are temporary codes, until we have a collision system for ECS.
                 Vector3 posTemp = new Vector3(xPos, i, zPos);
-                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                //GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                AddCollider(posTemp);
 
                 Entity entities = manager.CreateEntity(BlockArchetype);
                 manager.SetComponentData(entities, new Position { Value = new int3(xPos, i, zPos) });
@@ -244,7 +235,8 @@ namespace Minecraft
                             {
                                 //this is a temporary line.
                                 posTemp = new Vector3(j, i, k);
-                                GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                                //GM.GetComponent<ColliderPool>().AddCollider(posTemp);
+                                AddCollider(posTemp);
 
                                 entities = manager.CreateEntity(BlockArchetype);
                                 manager.SetComponentData(entities, new Position { Value = new int3(j, i, k) });
@@ -316,6 +308,12 @@ namespace Minecraft
                     });
                 }
             }
+        }
+
+        void AddCollider(Vector3 posTemp)
+        {
+            if(createCollider)
+            GM.GetComponent<ColliderPool>().AddCollider(posTemp);
         }
     }
 }
