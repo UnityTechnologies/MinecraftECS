@@ -3,6 +3,7 @@ using Unity.Rendering;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Collections;
 
 namespace Minecraft
 {
@@ -19,6 +20,7 @@ namespace Minecraft
 
         public EntityManager manager;
         public Entity entities;
+        public GameObject Prefab_ref;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize()
@@ -38,7 +40,7 @@ namespace Minecraft
             manager = World.Active.GetOrCreateManager<EntityManager>();
 
             Entity entities = manager.CreateEntity(BlockArchetype);
-            manager.SetComponentData(entities, new Position { Value = new int3(0, 0, 0) });
+            manager.SetComponentData(entities, new Position { Value = new int3(2, 0, 0) });
             manager.AddComponentData(entities, new BlockTag { });
 
             manager.AddSharedComponentData(entities, new MeshInstanceRenderer
@@ -46,6 +48,17 @@ namespace Minecraft
                 mesh = blockMesh,
                 material = blockMaterial
             });
+
+
+            //use prefab to create a entity
+            if (Prefab_ref)
+            {
+                NativeArray<Entity> entityArray = new NativeArray<Entity>(1, Allocator.Temp);
+                manager.Instantiate(Prefab_ref, entityArray);
+
+                manager.SetComponentData(entityArray[0], new Position { Value = new float3(4, 0f, 0f) });
+                entityArray.Dispose();
+            }
         }
     }
 }

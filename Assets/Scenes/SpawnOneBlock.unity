@@ -219,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   blockMaterial: {fileID: 2100000, guid: 5eed8330c9fa6e3459c0c20cf4e62245, type: 2}
+  Prefab_ref: {fileID: 0}
 --- !u!4 &725389294
 Transform:
   m_ObjectHideFlags: 0
