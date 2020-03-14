@@ -5,69 +5,70 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Rendering;
+
 
 namespace Minecraft
 {
     public class DestroySystem : ComponentSystem
     {
-        struct BlockGroup
-        {
-            [ReadOnly] public readonly int Length;
-            [ReadOnly] public EntityArray entity;
-            [ReadOnly] public ComponentDataArray<Position> positions;
-            [ReadOnly] public ComponentDataArray<BlockTag> tags;
-        }
 
-        struct DestoryBlockGroup
-        {
-            [ReadOnly] public readonly int Length;
-            [ReadOnly] public EntityArray entity;
-            [ReadOnly]public ComponentDataArray<Position> positions;
-            [ReadOnly] public ComponentDataArray<DestroyTag> tags;
-        }
+        private EntityQuery targetBlocks, sourceBlock, surfaceplants;
 
-        struct SurfacePlantGroup
-        {
-            [ReadOnly] public readonly int Length;
-            [ReadOnly] public EntityArray entity;
-            [ReadOnly] public ComponentDataArray<Position> positions;
-            [ReadOnly] public ComponentDataArray<SurfacePlantTag> tags;
+        protected override void OnCreate(){
+            targetBlocks = GetEntityQuery(ComponentType.ReadOnly<BlockTag>(), ComponentType.ReadOnly<Translation>());
+            sourceBlock = GetEntityQuery(ComponentType.ReadOnly<DestroyTag>(), ComponentType.ReadOnly<Translation>());
+            surfaceplants = GetEntityQuery(ComponentType.ReadOnly<SurfacePlantTag>(), ComponentType.ReadOnly<Translation>());
         }
-        [Inject] BlockGroup targetBlocks;
-        [Inject] DestoryBlockGroup sourceBlock;
-        [Inject] SurfacePlantGroup surfaceplants;
 
         protected override void OnUpdate()
         {
-            for (int i = 0; i < sourceBlock.Length; i++)
-            {
-                for (int j = 0; j < targetBlocks.Length; j++)
-                {
-                    Vector3 offset = targetBlocks.positions[j].Value- sourceBlock.positions[i].Value;
+            var targetPos = targetBlocks.ToComponentDataArray<Translation>(Allocator.TempJob);
+            var sourcePos = sourceBlock.ToComponentDataArray<Translation>(Allocator.TempJob);
+            var plantPos = surfaceplants.ToComponentDataArray<Translation>(Allocator.TempJob);
+
+            var targetEntity = targetBlocks.ToEntityArray(Allocator.TempJob);
+            var sourceEntity = sourceBlock.ToEntityArray(Allocator.TempJob);
+            var plantEntity = surfaceplants.ToEntityArray(Allocator.TempJob);
+
+            for(int i=0; i<sourcePos.Length; i++){
+                for(int j=0; j< targetPos.Length; j++){
+                    Vector3 offset = targetPos[j].Value- sourcePos[i].Value;
                     float sqrLen = offset.sqrMagnitude;
 
                     //find the block to destroy
                     if (sqrLen == 0)
                    {
+                       
                         //remove the plant from the surface;
-                        for (int k = 0; k < surfaceplants.Length;k++)
+                        for (int k = 0; k < plantPos.Length;k++)
                         {
-                            float3 tmpPos = new float3(surfaceplants.positions[k].Value.x, surfaceplants.positions[k].Value.y+Vector3.down.y, surfaceplants.positions[k].Value.z);
-                            offset = targetBlocks.positions[j].Value - tmpPos;
+                            float3 tmpPos = new float3(plantPos[k].Value.x, plantPos[k].Value.y+Vector3.down.y, plantPos[k].Value.z);
+                            offset = targetPos[j].Value - tmpPos;
                             sqrLen = offset.sqrMagnitude;
 
                             if (sqrLen == 0)
                             {
-                                PostUpdateCommands.DestroyEntity(surfaceplants.entity[k]);
+                                PostUpdateCommands.DestroyEntity(plantEntity[k]);
                             }
                         }
 
                         //remove blocks
-                        PostUpdateCommands.DestroyEntity(sourceBlock.entity[i]);
-                        PostUpdateCommands.DestroyEntity(targetBlocks.entity[j]);
+                        PostUpdateCommands.DestroyEntity(sourceEntity[i]);
+                        PostUpdateCommands.DestroyEntity(targetEntity[j]);
                     }
                 }
             }
+
+            targetPos.Dispose();
+            sourcePos.Dispose();
+            plantPos.Dispose();
+
+            targetEntity.Dispose();
+            sourceEntity.Dispose();
+            plantEntity.Dispose();
+
         }
+
     }
 }

@@ -2,6 +2,5 @@
 using Unity.Entities;
 
 //
-[Serializable]
+[GenerateAuthoringComponent]
 public struct DestroyTag : IComponentData { }
-public class DestroyTagComponent : ComponentDataWrapper<DestroyTag> { }

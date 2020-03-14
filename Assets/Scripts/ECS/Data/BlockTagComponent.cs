@@ -2,6 +2,5 @@
 using Unity.Entities;
 
 //
-[Serializable]
+[GenerateAuthoringComponent]
 public struct BlockTag : IComponentData { }
-public class BlockTagComponent : ComponentDataWrapper<BlockTag> { }

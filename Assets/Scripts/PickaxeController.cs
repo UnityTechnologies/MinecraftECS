@@ -43,7 +43,7 @@ namespace Minecraft
             player = this.transform.parent.gameObject;
             Cursor.lockState = CursorLockMode.Locked;
 
-            manager = World.Active.GetOrCreateManager<EntityManager>();
+            manager = World.DefaultGameObjectInjectionWorld.EntityManager;
         }
 
         void Update()
@@ -154,16 +154,16 @@ namespace Minecraft
                 }
 
                 Entity entities = manager.CreateEntity(Minecraft.GameSettings.BlockArchetype);
-                manager.SetComponentData(entities, new Position { Value = hitInfo.transform.position + hitInfo.normal });
+                manager.SetComponentData(entities, new Translation { Value = hitInfo.transform.position + hitInfo.normal });
                 manager.AddComponentData(entities, new BlockTag { });
-                manager.AddSharedComponentData(entities, new MeshInstanceRenderer
+                manager.AddSharedComponentData(entities, new RenderMesh
                 {
                     mesh = Minecraft.GameSettings.GM.blockMesh,
                     material = Block
                 });
 
                 //add a box collider at the same location of the entity
-                Position posTemp = new Position { Value = (hitInfo.transform.position + hitInfo.normal) };
+                Translation posTemp = new Translation { Value = (hitInfo.transform.position + hitInfo.normal) };
                 Minecraft.ColliderPool.CP.AddCollider(posTemp.Value);
             }
         }
@@ -175,7 +175,7 @@ namespace Minecraft
             if (hitInfo.transform != null)
             {
                 Entity entities = manager.CreateEntity(Minecraft.GameSettings.BlockArchetype);
-                manager.SetComponentData(entities, new Position { Value = hitInfo.transform.position });
+                manager.SetComponentData(entities, new Translation { Value = hitInfo.transform.position });
                 manager.AddComponentData(entities, new DestroyTag {});
 
                 //move the dig effect to the position and play

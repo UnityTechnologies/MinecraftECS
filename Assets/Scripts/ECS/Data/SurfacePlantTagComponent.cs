@@ -2,6 +2,5 @@
 using Unity.Entities;
 
 //
-[Serializable]
+[GenerateAuthoringComponent]
 public struct SurfacePlantTag : IComponentData { }
-public class SurfacePlantTagComponent : ComponentDataWrapper<SurfacePlantTag> { }
