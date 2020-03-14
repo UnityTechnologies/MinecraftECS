@@ -1,7 +1,7 @@
 # MinecraftECS with Unity 2019.3.3 & Latest ECS Packages
 > This is an upgrade to Unity 2019.3.3 forked from the offical Unity MinecraftECS repository. The original Unity version was 2018.2.19.
 
-![Imgur](https://i.imgur.com/jQSy6Nb.gif)
+![Imgur](https://imgur.com/NDtCOQg.png)
 
 The code is about how to create a Minecraft-like environment with huge number of blocks using [ECS (Entity Component System)](https://docs.unity3d.com/Packages/com.unity.entities@0.8/manual/index.html).
 
