@@ -12,6 +12,8 @@ Unity Version:
 It's been 4 years since last time I update this project. and I hope you can learn some Unity DOTS technologies from it! Enjoy it! 
 
 Demo/Trailer Videos
+https://youtu.be/mBMsXCammTg
+
 https://youtu.be/_Cf8kLF4DPU
 
 https://youtu.be/w5F4i93IrM8

@@ -3,16 +3,7 @@ using Unity.Physics.Systems;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Entities;
-//using UnityEditor;
 using UnityEngine;
-//using UnityEngine.Assertions;
-//using Unity.Jobs;
-//using Unity.Burst;
-//using Unity.Collections.LowLevel.Unsafe;
-//using Unity.Collections.NotBurstCompatible;
-//using static Unity.Physics.CompoundCollider;
-//using Random = Unity.Mathematics.Random;
-//sing static Unity.Physics.Math;
 using Unity.Transforms;
 
 namespace Unity.Physics.Extensions
