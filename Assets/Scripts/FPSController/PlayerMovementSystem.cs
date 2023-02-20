@@ -30,7 +30,7 @@ partial class PlayerMovementSystem : SystemBase
         
         Entities
             .WithAll<PlayerEntity>()
-            .ForEach( ( ref TransformAspect transform, ref PhysicsVelocity vel) =>
+           .ForEach( ( ref TransformAspect transform, ref PhysicsVelocity vel) =>
             {
                 
 

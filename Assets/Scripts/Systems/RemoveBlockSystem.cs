@@ -28,7 +28,7 @@ using Unity.Jobs;
             .ForEach((Entity entity, in TransformAspect blockPos) =>
             {
                 //Offset position y+1
-                PosTemp = new float3(blockPos.Position.x, blockPos.Position.y+1, blockPos.Position.z);
+                PosTemp = new float3(blockPos.LocalTransform.Position.x, blockPos.LocalTransform.Position.y+1, blockPos.LocalTransform.Position.z);
                 ecb.DestroyEntity(entity);
             })
             .WithoutBurst()
@@ -43,7 +43,7 @@ using Unity.Jobs;
                 .WithAll<PlantBlock>()
                 .ForEach((Entity entity, in TransformAspect blockPos) =>
                 {
-                    if(PosTemp.Equals(blockPos.Position))
+                    if(PosTemp.Equals(blockPos.LocalTransform.Position))
                     {
                     //Destroy Plant block
                         ecb.DestroyEntity(entity);

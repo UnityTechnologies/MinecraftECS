@@ -6,6 +6,7 @@ using Unity.Burst;
     using Unity.Transforms;
     using Unity.Jobs;
     //using UnityEngine.UI;
+    //using UnityEngine;
 
     [BurstCompile]
     partial struct BlockGenerator : IJobEntity
@@ -246,9 +247,9 @@ using Unity.Burst;
 
             //ECB.SetComponent(index, e, MaterialMeshInfo.FromRenderMeshArrayIndices(matNumber, meshNumber));
             //ECB.SetComponent(index, e, new LocalToWorld {Value = float4x4.Translate(blockPos)});
-            //ECB.SetComponent(index, e, new LocalToWorld {Value = float4x4.TRS(blockPos,R,s)});
-            ECB.SetComponent(index, e, new Translation {Value = blockPos});
-            ECB.SetComponent(index, e, new Rotation {Value = R});
+            ECB.SetComponent(index, e, new LocalTransform {Position = blockPos, Rotation = R, Scale = 1});
+            //ECB.SetComponent(index, e, new LocalTransform {Rotation = R});
+            //Debug.Log(blockPos);
             
             //設定Shader Graph對應材質編號
             ECB.SetComponent(index, e, new BlockID {blockID = m_mat});

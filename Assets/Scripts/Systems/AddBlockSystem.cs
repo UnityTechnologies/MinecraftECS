@@ -45,7 +45,8 @@ using Unity.Jobs;
 
             //Instantate a prefab block
             var e = ecb.Instantiate(spawnBlock);
-            ecb.SetComponent(e, new Translation {Value = addBlock.spawnPos});
+            //ecb.SetComponent(e, new Translation {Value = addBlock.spawnPos});
+            ecb.SetComponent(e, new LocalTransform {Position = addBlock.spawnPos, Scale = 1});
             ecb.SetComponent(e, new BlockID {blockID = addBlock.spawnMat});
 
             //Add remove block tag
